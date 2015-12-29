@@ -40,3 +40,9 @@
 /Gemfile.lock
 /Gemfile.local
 
+/files/delete.me
+/log/delete.me
+/public/plugin_assets/empty
+/tmp/pdf/empty
+/tmp/test/empty
+/tmp/thumbnails/empty
