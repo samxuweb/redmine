@@ -325,6 +325,14 @@ class Mailer < ActionMailer::Base
       :subject => 'Redmine test'
   end
 
+  # Send notication after project archived
+  def project_archive(project, user)
+    @project = project
+    @users = user.collect {|v| v.mail}
+    mail :to => @users,
+      :subject => " #{@project.name} is archived!"
+  end
+
   # Sends reminders to issue assignees
   # Available options:
   # * :days     => how many days in the future to remind about (defaults to 7)

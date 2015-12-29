@@ -527,6 +527,11 @@ class Project < ActiveRecord::Base
     members.select {|m| m.principal.present? && (m.mail_notification? || m.principal.mail_notification == 'all')}.collect {|m| m.principal}
   end
 
+  # Returns the members who open the mail notification
+  def archive_users
+    project.users.select {|user| user.mail_notification != 'none' }
+  end
+
   # Returns a scope of all custom fields enabled for project issues
   # (explicitly associated custom fields and custom fields enabled for all projects)
   def all_issue_custom_fields

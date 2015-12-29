@@ -195,6 +195,8 @@ class ProjectsController < ApplicationController
   end
 
   def archive
+    # Call the function in Mail model when project is archived
+    Mailer.project_archive(@project, @project.archive_users).deliver
     unless @project.archive
       flash[:error] = l(:error_can_not_archive_project)
     end
