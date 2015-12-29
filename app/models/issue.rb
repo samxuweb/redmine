@@ -125,8 +125,9 @@ class Issue < ActiveRecord::Base
         when 'all'
           nil
         when 'default'
+	  # Make watchers can see the private issues in issue lists
           user_ids = [user.id] + user.groups.map(&:id).compact
-          "(#{table_name}.is_private = #{connection.quoted_false} OR #{table_name}.author_id = #{user.id} OR #{table_name}.assigned_to_id IN (#{user_ids.join(',')}))"
+          "(#{table_name}.is_private = #{connection.quoted_false} OR #{table_name}.author_id = #{user.id} OR #{table_name}.assigned_to_id IN (#{user_ids.join(',')}) OR #{table_name}.id IN (select watchable_id from watchers where user_id = #{user.id}))"
         when 'own'
           user_ids = [user.id] + user.groups.map(&:id).compact
           "(#{table_name}.author_id = #{user.id} OR #{table_name}.assigned_to_id IN (#{user_ids.join(',')}))"
@@ -147,7 +148,8 @@ class Issue < ActiveRecord::Base
         when 'all'
           true
         when 'default'
-          !self.is_private? || (self.author == user || user.is_or_belongs_to?(assigned_to))
+	  # Make watchers can view the private issues
+          !self.is_private? || (self.author == user || user.is_or_belongs_to?(assigned_to)) || (self.watcher_user_ids.include?(user.id))
         when 'own'
           self.author == user || user.is_or_belongs_to?(assigned_to)
         else
