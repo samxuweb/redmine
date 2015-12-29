@@ -13,3 +13,4 @@
                              :assigned_to_id => 'me', :format => 'atom', :key => User.current.rss_key},
                             {:title => l(:label_assigned_to_me_issues)}) %>
 <% end %>
+<%= will_paginate assigned_issues, :param_name => 'assigned_issue' %>

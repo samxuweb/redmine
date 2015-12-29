@@ -5,5 +5,5 @@
   (<%= watched_issues.limit(nil).count %>)
 </h3>
 
-
 <%= render :partial => 'issues/list_simple', :locals => { :issues => watched_issues.to_a } %>
+<%= will_paginate watched_issues, :param_name => 'watched_issue' %>

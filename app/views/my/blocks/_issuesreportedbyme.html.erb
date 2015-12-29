@@ -13,3 +13,4 @@
                              :author_id => 'me', :format => 'atom', :key => User.current.rss_key},
                             {:title => l(:label_reported_issues)}) %>
 <% end %>
+<%= will_paginate reported_issues, :param_name => 'reported_issue' %>

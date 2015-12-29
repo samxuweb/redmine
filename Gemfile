@@ -15,6 +15,8 @@ gem "actionpack-action_caching"
 gem "actionpack-xml_parser"
 gem "roadie-rails"
 
+gem "will_paginate"
+
 # Request at least nokogiri 1.6.7.1 because of security advisories
 gem "nokogiri", ">= 1.6.7.1"
 
